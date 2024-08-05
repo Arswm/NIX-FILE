@@ -1,0 +1,58 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.primary-btn {
+    @apply bg-secondary-color/80 block text-white font-medium py-2 px-4 rounded shadow hover:bg-secondary-color transition duration-300;
+}
+
+.red-btn {
+    @apply py-3 px-12 inline-block rounded-lg bg-primary-color text-white shadow hover:bg-secondary-color transition duration-300;
+}
+
+@font-face {
+    font-family: 'Dana';
+    src: url('/public/fonts/dana/woff2/Dana-Regular.woff2') format('woff2'),
+    url('/public/fonts/dana/woff/Dana-Regular.woff') format('woff'),
+    url('/public/fonts/dana/FarsiNumerals/DanaFaNum-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dana';
+    src: url('/public/fonts/dana/woff2/Dana-Medium.woff2') format('woff2'),
+    url('/public/fonts/dana/woff/Dana-Medium.woff') format('woff'),
+    url('/public/fonts/dana/FarsiNumerals/DanaFaNum-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dana';
+    src: url('/public/fonts/dana/woff2/Dana-DemiBold.woff2') format('woff2'),
+    url('/public/fonts/dana/woff/Dana-DemiBold.woff') format('woff'),
+    url('/public/fonts/dana/FarsiNumerals/DanaFaNum-DemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dana';
+    src: url('/public/fonts/dana/woff2/Dana-Bold.woff2') format('woff2'),
+    url('/public/fonts/dana/woff/Dana-Bold.woff') format('woff'),
+    url('/public/fonts/dana/FarsiNumerals/DanaFaNum-Bold.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dana';
+    src: url('/public/fonts/dana/woff2/Dana-Black.woff2') format('woff2'),
+    url('/public/fonts/dana/woff/Dana-Black.woff') format('woff'),
+    url('/public/fonts/dana/FarsiNumerals/DanaFaNum-Black.ttf') format('ttf');
+    font-weight: 900;
+    font-style: normal;
+}
+
+*{
+    font-family: 'Dana', sans-serif;
+}

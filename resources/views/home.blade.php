@@ -12,8 +12,9 @@
 
 
     <div class="bg-gradient-to-b from-black to-transparent pt-12 w-full min-h-12">
-
     </div>
+
+    @include('Components.header')
 
 
     <div class="lg:mx-4 flex flex-col">

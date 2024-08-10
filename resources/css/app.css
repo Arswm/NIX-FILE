@@ -1,17 +1,13 @@
+/* fontawsome setting */
 @import '@fortawesome/fontawesome-free/css/all.css';
 
+/* tailwind setting */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.primary-btn {
-    @apply bg-secondary-color/80 block text-white font-medium py-2 px-4 rounded shadow hover:bg-secondary-color transition duration-300;
-}
 
-.red-btn {
-    @apply py-3 px-12 inline-block rounded-lg bg-primary-color text-white shadow hover:bg-secondary-color transition duration-300;
-}
-
+/* Dana custom font setting */
 @font-face {
     font-family: 'Dana';
     src: url('/public/fonts/dana/woff2/Dana-Regular.woff2') format('woff2'),
@@ -53,6 +49,25 @@
     font-style: normal;
 }
 
+
+/* adding Dana font to all elements */
 *{
     font-family: 'Dana', sans-serif;
+}
+
+/* custom classes created using apply tailwind directive */
+.primary-btn {
+  @apply bg-secondary-color/80 block text-white font-medium py-2 px-4 rounded shadow hover:bg-secondary-color transition duration-300;
+}
+
+.red-btn {
+  @apply py-2 px-8 inline-block rounded-xl bg-primary-color/80 text-white shadow hover:bg-primary-color transition duration-300;
+}
+
+.white-btn{
+  box-shadow: 0 0 8px 1px rgba(255,255,255,0.5);
+  @apply bg-white block font-medium py-2 px-8 rounded-xl shadow-white hover:bg-secondary-color transition duration-300;
+}
+.shadow-custom{
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.1);
 }

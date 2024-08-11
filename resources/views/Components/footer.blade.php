@@ -2,7 +2,7 @@
   <div class="h-2 bg-primary-color w-full">
 
   </div>
-  <div class="flex flex-wrap lg:flex-nowrap mx-6 gap-8 lg:gap-0 lg:mx-12 py-8 px-12">
+  <div class="flex flex-wrap lg:flex-nowrap mx-6 gap-8 lg:gap-0 lg:mx-12 py-2 lg:py-8 px-4 lg:px-12">
     <div class="flex flex-col grow lg:basis-1/4 text-center lg:text-start">
       <p class="text-2xl">
         خدمات مشتریان
@@ -41,7 +41,7 @@
       </p>
 
       <form action="/your-action-url" method="POST" class="flex items-center space-x-2">
-        <label for="email" class="bg-[#F3F4F6] rounded-lg flex items-center px-4 py-3">
+        <label for="email" class="bg-[#F3F4F6] rounded-lg flex items-center py-3">
           <input
             type="email"
             id="email"

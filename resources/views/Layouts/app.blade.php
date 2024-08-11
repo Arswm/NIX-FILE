@@ -34,7 +34,7 @@
     </div>
 
 
-    <div class=" h-full flex flex-col items-center relative gap-4">
+    <div class="lg:h-full flex flex-col items-center relative gap-4">
 
       <div class="flex flex-col gap-4 w-3/4  top-1 mb-12 md:sticky">
         @auth
@@ -88,14 +88,17 @@
 
         @endguest
         <div
-          class="flex flex-col bg-white shadow-lg border rounded-2xl p-4 w-[90%] mb-12 mt-14 text-center relative
-                    before:content-[''] before:w-full before:h-full before:absolute before:-z-10 before:rounded-2xl before:bg-primary-color">
+          class="
+          flex flex-col bg-white shadow-lg border rounded-2xl p-4 w-[90%] mb-12 mt-14 text-center relative
+          before:content-[''] before:w-full before:h-full
+          before:absolute before:-z-10 before:rounded-2xl before:bg-primary-color
+          ">
           <p
             class="text-primary-color pt-8 mb-4 after:content-[' '] after:w-[50px] after:h-[50px] after:absolute after:top-[-1.58rem] after:right-0 after:left-0 after:mx-auto after:rotate-45 after:bg-white after:border-t after:border-l ">
             سخن بزرگان !
           </p>
 
-          <p>
+          <p class="text-wrap">
             @php
               //               $sentence = Cache::remember('random_sentence', 60 * 24, function () {
                              $sentence = \App\Models\Sentence::inRandomOrder()->first();
@@ -226,18 +229,16 @@
 
 <script>
 
-
   $("#submitPhone").on("click", function () {
     let phone = $('#phoneInput').val();
-    let $numberNotValid = $('.numberNotValid')
+    let $numberNotValid = $('.numberNotValid');
 
-    if (phone.length !== 11 || phone.charAt(0) !== '0') {
 
-      $numberNotValid.show()
-      $numberNotValid.html('شماره وارد شده معتبر نیست')
-
+    if (phone.length !== 11 || !phone.startsWith('0')) {
+      $numberNotValid.text('شماره وارد شده معتبر نیست').show();
       return;
     }
+
 
     $.ajax({
       url: "{{ route('otp.sendPhone') }}",
@@ -248,28 +249,30 @@
         _token: "{{ csrf_token() }}"
       },
       success: function (data) {
+
         $("#phoneInput").hide();
         $("#tokenInput").show();
         $("#otpWelcome").addClass('hidden');
-        $("#otpEnterCode").removeClass('hidden')
+        $("#otpEnterCode").removeClass('hidden');
         $("#submitPhone").hide();
         $("#submitToken").show();
       },
       error: function (xhr, status, error) {
-        console.error(error);
-        // Handle error
+        console.error('Error sending OTP:', error);
       }
     });
   });
 
   $("#submitToken").on("click", function () {
-    let phone = $('#phoneInput').val(); // Get the value of the input
     let token = $("#tokenInput").val();
 
     if (token.length !== 5) {
       alert("رمز وارد شده معتبر نیست.");
       return;
     }
+
+
+    let phone = $('#phoneInput').val();
 
     $.ajax({
       url: "{{ route('otp.sendToken') }}",
@@ -279,18 +282,16 @@
         phone: phone,
         token: token,
         _token: "{{ csrf_token() }}"
-
       },
       success: function (data) {
+        console.log('Login successful:', data);
         location.reload();
       },
       error: function (xhr, status, error) {
-        console.error(error);
-        // Handle error
+        console.error('Error verifying OTP:', error);
       }
     });
   });
-
 
 </script>
 

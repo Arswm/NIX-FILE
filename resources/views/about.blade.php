@@ -1,13 +1,16 @@
 @extends('Layouts.app')
 
-@php
-  $mainClass = 'lg:w-3/4 bg-[#f7f7f7] order-2 md:order-1'
-@endphp
+
 
 @section('title', 'About Page')
 
 
 @section('content')
+
+  @php
+    $mainClass = 'lg:w-3/4 bg-[#f7f7f7] order-2 md:order-1'
+  @endphp
+
   <div class="bg-[#AA1E12] p-8 min-h-[600px] bg-no-repeat bg-cover bg-center relative" dir="rtl"
        style="background-image: url('{{ asset('about-bg.svg') }}');">
 

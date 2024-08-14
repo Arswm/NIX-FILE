@@ -1,62 +1,83 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 
 class OtpController extends Controller
 {
-  public function sendPhone(Request $request)
+  private function sendPhone(Request $request)
   {
+    $request->validate([
+      'phone' => 'required|numeric|digits:11',
+    ]);
+
     $phone = $request->phone;
+
     $user = User::where('phone', $phone)->first();
+
     if (!$user) {
       $user = new User();
-      $user->phone = $request->phone;
+      $user->phone = $phone;
       $user->save();
     }
 
+
     $user->phone_token = rand(10000, 99999);
+
     $user->save();
 
-    $url = "https://ippanel.com/services.jspd";
+    $curl = curl_init();
 
-    $rcpt_nm = [$user->phone];
-    $param = array
-    (
-      'uname' => '1930575130',
-      'pass' => 'abedi1993',
-      'from' => '3000505',
-      'patter-code' => '9hbvho4ymh134ma',
-      'to' => json_encode($rcpt_nm),
-      'op' => 'send'
-    );
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://ippanel.com/api/select',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => json_encode([
+        "op" => "pattern",
+        "user" => "1930575130",
+        "pass" => "abedi1993",
+        "fromNum" => "3000505",
+        "toNum" => $phone,
+        "patternCode" => "9hbvho4ymh134ma",
+        "inputData" => [
+          [
+            "code" => $user->phone_token,
+          ]
+        ]
+      ]),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
 
+    $response = curl_exec($curl);
+    $curl_error = curl_error($curl);
+    curl_close($curl);
 
-    $handler = curl_init($url);
-    curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($handler, CURLOPT_POSTFIELDS, $param);
-    curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
-    $response2 = curl_exec($handler);
+    if ($curl_error) {
+      return response()->json(['error' => 'Failed to send OTP.'], 500);
+    }
 
-    $response2 = json_decode($response2);
-    return $response2;
+    $responseDecoded = json_decode($response, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+      return response()->json(['error' => 'Invalid response from OTP service.'], 500);
+    }
 
-    $res_code = $response2[0];
-    $res_data = $response2[1];
+    \Log::info('OTP API Response: ' . $response);
 
-    echo $res_data;
-
-    return response()->json([
-      'success' => true,
-      'message' => 'OTP sent successfully.',
-    ], 200);
+    return response()->json(['message' => 'OTP sent successfully', 'data' => $responseDecoded], 200);
   }
 
-  public function sendToken(Request $request)
+
+  private function sendToken(Request $request)
   {
     $phone = $request->phone;
     $token = $request->token;
@@ -87,5 +108,4 @@ class OtpController extends Controller
     return redirect()->route('home');
   }
 }
-
 

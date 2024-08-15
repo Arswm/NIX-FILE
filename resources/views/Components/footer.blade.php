@@ -1,4 +1,4 @@
-<footer class="lg:w-3/4 bg-[#f7f7f7]">
+<footer class="w-full bg-[#f7f7f7]">
   <div class="h-2 bg-primary-color w-full">
 
   </div>

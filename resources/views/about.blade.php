@@ -8,22 +8,16 @@
 @section('content')
 
   @php
-    $mainClass = 'lg:w-3/4 bg-[#f7f7f7] order-2 md:order-1'
+    $mainClass = 'lg:w-3/4 bg-[#f7f7f7]'
   @endphp
 
   <div class="bg-[#AA1E12] min-h-[600px] bg-no-repeat bg-cover bg-center relative" dir="rtl"
        style="background-image: url('{{ asset('about-bg.svg') }}');">
 
-
-
-  <div class="pt-8">
-    @include('Components.header')
-  </div>
-
-    <div class="px-8 mt-24">
+    <div class="px-8 pt-24">
       <div class="flex items-start gap-6">
         <div
-          class="w-2 h-4 bg-white relative z-30 rounded-full before:content-[''] before:absolute
+          class="w-2 h-4 bg-white relative z-10 rounded-full before:content-[''] before:absolute
          before:top-2 before:rounded-full before:h-4 before:w-full before:bg-white/60 before:z-20 after:content-[''] after:absolute
           after:top-4 after:rounded-full after:h-4 after:w-full after:bg-white/30 after:z-20 block">
         </div>
@@ -97,7 +91,7 @@
 
     <div class="flex items-start gap-6 mx-8 mt-14">
       <div
-        class="w-2 h-4 bg-primary-color relative z-30 rounded-full before:content-[''] before:absolute  before:top-2 before:rounded-full before:h-4 before:w-full before:bg-primary-color/60 before:z-20 after:content-[''] after:absolute  after:top-4 after:rounded-full after:h-4 after:w-full after:bg-primary-color/30 after:z-20 block">
+        class="w-2 h-4 bg-primary-color relative z-10 rounded-full before:content-[''] before:absolute  before:top-2 before:rounded-full before:h-4 before:w-full before:bg-primary-color/60 before:z-20 after:content-[''] after:absolute  after:top-4 after:rounded-full after:h-4 after:w-full after:bg-primary-color/30 after:z-20 block">
 
       </div>
       <h1 class="font-bold text-2xl mb-6 ">

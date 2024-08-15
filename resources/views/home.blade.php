@@ -3,9 +3,11 @@
 @section('title', 'Home Page')
 
 @php
-  $mainClass = 'order-2 md:order-1 lg:w-3/4'
+  $mainClass = 'lg:w-3/4'
 @endphp
 @section('content')
+
+
 
   <div class="w-full bg-no-repeat bg-auto relative bg-[#290F0C]"
        style="background-image: url('{{asset('./images/hero.jpeg')}}')">
@@ -13,9 +15,6 @@
 
     <div class="bg-gradient-to-b from-black to-transparent pt-12 w-full min-h-12">
     </div>
-
-    @include('Components.header')
-
 
     <div class="lg:mx-4 flex flex-col">
 
@@ -122,7 +121,7 @@
     <div class="bg-white lg:shadow-lg rounded-2xl md:mx-6 lg:mx-12 lg:p-12 mt-12">
 
       <div
-        class="flex flex-col-reverse flex-wrap gap-8 lg:flex-row lg:gap-0 lg:flex-nowrap justify-between mb-12 p-4">
+        class="flex flex-col-reverse flex-wrap gap-8 lg:flex-row-reverse lg:gap-0 lg:flex-nowrap justify-between mb-12 p-4">
         <div class="flex justify-evenly items-center gap-2">
           <p>
             ماهانه
@@ -139,9 +138,10 @@
         </div>
         <div class="text-left">
           <p dir="ltr" class="text-5xl font-bold mb-3">
-            <span class="text-primary-color">Plan</span> Price
+            هزینه
+            <span class="text-primary-color">اشتراک ها</span>
           </p>
-          <p class="text-zinc-400 font-semibold text-lg ">
+          <p class="text-zinc-400 font-semibold text-lg text-start">
             پلن های ما
           </p>
         </div>

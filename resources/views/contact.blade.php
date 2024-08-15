@@ -1,7 +1,7 @@
 @extends('Layouts.app')
 
 @php
-  $mainClass = 'w-full order-2 lg:order-1 lg:w-3/4 bg-[#f7f7f7]'
+  $mainClass = 'w-full lg:w-3/4 bg-[#f7f7f7]'
 @endphp
 
 @section('title', 'About Page')
@@ -12,7 +12,6 @@
   <div class="mb-4">
 
   </div>
-  @include('Components.header')
 
   <div class="mx-6">
     <div class="flex flex-wrap md:flex-nowrap mt-12 gap-4 mb-12">

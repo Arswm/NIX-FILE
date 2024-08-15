@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class OtpController extends Controller
 {
-  private function sendPhone(Request $request)
+  public function sendPhone(Request $request)
   {
     $request->validate([
       'phone' => 'required|numeric|digits:11',
@@ -77,7 +77,7 @@ class OtpController extends Controller
   }
 
 
-  private function sendToken(Request $request)
+  public function sendToken(Request $request)
   {
     $phone = $request->phone;
     $token = $request->token;

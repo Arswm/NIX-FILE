@@ -13,39 +13,32 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css"
         integrity="sha512-7uSoC3grlnRktCWoO4LjHMjotq8gf9XDFQerPuaph+cqR7JC9XKGdvN+UwZMC14aAaBDItdRj3DcSDs4kMWUgg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
 </head>
 
 <body>
 
-
 <main class="flex flex-wrap min-h-screen">
 
-
-  <div class="{{ $mainClass ?? '' }}">
-    @yield('content')
-  </div>
-
-  <aside class="order-1 md:order-2 w-full lg:w-1/4">
-    <div class="mx-auto bg-primary-color text-white text-left py-8">
-      <div class="w-3/4 mx-auto">
-        <h1 class="text-4xl font-bold">
-          <a href="{{route('home')}}"> NixFile.com
-            <p class="font-medium text-sm">
-              change to forever...
+  <aside class=" w-full lg:w-1/4 flex flex-col">
+    <div class="bg-primary-color text-white text-left py-8">
+      @include('Components.header')
+      <div class="flex itmes-center mx-6 mt-6">
+        <h1 class="text-4xl font-bold text-start">
+          <a href="{{route('home')}}"> نیکس فایل
+            <p class="font-medium text-sm pt-2">
+              
             </p>
           </a>
         </h1>
+
       </div>
     </div>
 
+    <div class="flex flex-col items-center relative gap-4 grow">
 
-    <div class="lg:h-full flex flex-col items-center relative gap-4">
-
-      <div class="flex flex-col gap-4 w-3/4  top-1 mb-12 md:sticky">
+      <div class="flex flex-col gap-4 w-3/4  top-1 mb-12 sticky">
         @auth
-
-          <div class="flex flex-col rounded-3xl bg-white shadow-lg px-4 py-6 justify-center items-center">
+          <div class="flex flex-col rounded-3xl bg-white shadow-custom px-4 py-6 justify-center items-center mt-8">
             <img class="mb-4 w-[50px]" src="{{asset('./images/upload-icon.svg')}}" alt="" title="">
             <a class="font-semibold text-xl mb-2" href="#">
               آپلود فایل
@@ -56,7 +49,7 @@
 
             <div class="container mx-auto mt-0">
               <form action="{{url("/files/store")}}" class="dropzone" id="fileDropzone">
-                @csrf <!-- Ensure CSRF token is included if using a framework like Laravel -->
+                @csrf
                 <div class="fallback">
                   <input name="file" type="file" multiple/>
                 </div>
@@ -64,7 +57,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col rounded-3xl bg-white shadow-lg px-4 py-6 justify-center items-center">
+          <div class="flex flex-col rounded-3xl bg-white shadow-custom px-4 py-6 justify-center items-center">
             <img class="mb-4 w-[50px]" src="{{asset('./images/key.svg')}}" alt="" title="">
             <a class="font-semibold mb-2 text-xl" href="#"> دانلود فایل </a>
             <a class="border rounded-xl p-4 border-green-200 text-zinc-400" href="#">
@@ -80,12 +73,12 @@
                      alt="">
               </div>
             </div>
-                        <div>
-                          <p class="font-semibold text-lg">
-                            علی بهوندی خوش آمدید!
-                          </p>
-                          <a class="text-zinc-400 text-sm" href="#">حساب کاربری شما</a>
-                        </div>
+            <div>
+              <p class="font-semibold text-lg">
+                علی بهوندی خوش آمدید!
+              </p>
+              <a class="text-zinc-400 text-sm" href="#">حساب کاربری شما</a>
+            </div>
           </div>
 
         @endauth
@@ -93,19 +86,26 @@
 
           <div class="text-center mt-8">
             <p class="text-xl ">
-              برای آپلود فایل <a class="text-secondary-color font-bold login-modal-opener cursor-pointer">وارد </a> شوید
+              برای آپلود فایل
+              <a class="text-secondary-color font-bold login-modal-opener cursor-pointer">وارد </a>
+              شوید
+              یا
+              <a class="text-secondary-color font-bold login-modal-opener cursor-pointer">ثبت نام </a>
+              کنید
             </p>
           </div>
 
         @endguest
         <div
           class="
-          flex flex-col bg-white shadow-lg border rounded-2xl p-4 w-[90%] mb-12 mt-14 text-center relative
+          flex flex-col bg-white shadow-custom border rounded-2xl p-4 w-[90%] mb-12 mt-14 text-center relative
           before:content-[''] before:w-full before:h-full
-          before:absolute before:-z-10 before:rounded-2xl before:bg-primary-color
+          before:absolute before:-z-10 before:rounded-2xl before:bg-primary-color before:-right-4
           ">
           <p
-            class="text-primary-color pt-8 mb-4 after:content-[' '] after:w-[50px] after:h-[50px] after:absolute after:top-[-1.58rem] after:right-0 after:left-0 after:mx-auto after:rotate-45 after:bg-white after:border-t after:border-l ">
+            class="text-primary-color pt-4 mb-4 after:content-[' '] after:w-[50px]
+             after:h-[50px] after:absolute after:top-[-1.58rem] after:right-0 after:left-0
+             after:mx-auto after:rotate-45 after:bg-white after:border-t after:border-l after:z-10">
             سخن بزرگان !
           </p>
 
@@ -119,11 +119,13 @@
           </p>
         </div>
       </div>
-
-
     </div>
   </aside>
 
+  <div class="{{ $mainClass ?? '' }}">
+    @yield('content')
+    @include('Components.footer')
+  </div>
 
 </main>
 
@@ -133,7 +135,7 @@
 </div>
 
 <div
-  class="login-modal z-20 hidden min-h-[280px] bg-white fixed top-0 left-0 bottom-0 right-0 m-auto w-[90%] lg:w-2/4 h-max shadow-lg rounded-3xl p-12 justify-center items-center flex-col gap-4">
+  class="login-modal z-20 hidden min-h-[280px] bg-white fixed top-0 left-0 bottom-0 right-0 m-auto w-[90%] lg:w-2/4 h-max shadow-custom rounded-3xl p-12 justify-center items-center flex-col gap-4">
 
   <span class="login-modal-closer cursor-pointer font-black text-xl text-left justify-self-end self-start">X</span>
   <p id="otpWelcome" class="text-xl font-semibold mb-2">
@@ -147,9 +149,14 @@
     <input type="text" id="phoneInput" class="flex h-8 rounded-3xl w-full border-2 border-secondary-color bg-white outline-none px-4 py-2 text-sm file:border-0 file:bg-transparent
      file:text-sm file:font-medium placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50 focus:border-secondary-color
     ">
+
     <label id="otpEnterCode" for="tokenInput" dir="ltr" class="hidden text-xl font-semibold mb-2 text-center">لطفا کد ۵
       رقمی را وارد نمایید</label>
-    <input hidden type="text" id="tokenInput" class="h-8 rounded-3xl w-[320px] border-2 border-secondary-color bg-white outline-none px-4 py-2 text-sm file:border-0 file:bg-transparent
+
+    <p class="tokenError text-primary-color bg-red-200 px-4 py-2 font-medium rounded-md" hidden></p>
+
+    </p>
+    <input hidden type="text" maxlength="5" id="tokenInput" class="h-8 rounded-3xl w-[320px] border-2 border-secondary-color bg-white outline-none px-4 py-2 text-sm file:border-0 file:bg-transparent
      file:text-sm file:font-medium placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50 focus:border-secondary-color
     ">
     <div id="submitPhone"
@@ -162,8 +169,6 @@
     </div>
   </form>
 </div>
-
-@include('Components.footer')
 
 <script>
   let plansBtn = document.querySelector('.plans-btn');
@@ -225,10 +230,10 @@
   })
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
 
 <script>
@@ -236,12 +241,12 @@
     let phone = $('#phoneInput').val();
     let $numberNotValid = $('.numberNotValid');
 
-
     if (phone.length !== 11 || !phone.startsWith('0')) {
       $numberNotValid.text('شماره وارد شده معتبر نیست').show();
       return;
     }
 
+    $numberNotValid.hide();
 
     $.ajax({
       url: "{{ route('otp.sendPhone') }}",
@@ -262,18 +267,22 @@
       },
       error: function (xhr, status, error) {
         console.error('Error sending OTP:', error);
+        // ???
       }
     });
   });
 
   $("#submitToken").on("click", function () {
     let token = $("#tokenInput").val();
+    let $tokenError = $(".tokenError");
 
     if (token.length !== 5) {
-      alert("رمز وارد شده معتبر نیست.");
-      return;
+      $tokenError.html('رمز وارد شده معتبر نیست').show();
+
+      return
     }
 
+    $tokenError.hide()
 
     let phone = $('#phoneInput').val();
 
@@ -296,9 +305,11 @@
     });
   });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"
-        integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"
+  integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   {{--$(document).ready(function () {--}}
   {{--  Dropzone.autoDiscover = false;--}}
@@ -336,7 +347,6 @@
   {{--  // You can also add other event listeners or configurations here--}}
   {{--});--}}
 </script>
-
 
 </body>
 

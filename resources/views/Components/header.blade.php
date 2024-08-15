@@ -5,9 +5,7 @@
     class="text-2xl font-black text-left menu-closer self-end pe-4 ps-4 py-4 cursor-pointer absolute top-0 left-4">X
   </div>
   <div class="bg-red-500 relative w-full h-4 before:content-['']
-       before:absolute before:-top-4 before:w-full before:h-8 before:bg-red-400 before:-z-10
-        after:bg-red-300 after:content-[''] after:w-full after:h-12 after:absolute
-        after:-top-8 after:-z-20
+       before:absolute
         ">
   </div>
 
@@ -29,16 +27,16 @@
 </haeder>
 
 <div class="flex gap-2 ps-6">
-  <div class="menu-opener bg-white w-10 flex justify-center items-center rounded p-2 cursor-pointer">
+  <div class="menu-opener bg-white w-10 flex justify-center items-center rounded p-2 cursor-pointer hover:bg-red">
     <img class="w-full object-cover object-center" src="{{asset('images/menu-burger.png')}}" alt="" title="">
   </div>
   @if(Auth::check())
     <a
-      class="bg-secondary-color hover:bg-primary-color py-2 px-4 rounded font-semibold text-lg text-white transition-all"
+      class="bg-secondary-color hover:bg-white border border-primary-color hover:border hover:border-secondary-color hover:text-secondary-color py-2 px-4 rounded font-semibold text-lg text-white transition-all"
       href="{{route('otp.logout')}}">خروج</a>
   @else
     <button
-      class="login-modal-opener bg-secondary-color hover:bg-primary-color py-2 px-4 rounded font-semibold text-lg text-white transition-all"
+      class="login-modal-opener bg-secondary-color hover:bg-white hover:text-slate-700 border border-primary-color hover:border-secondary-color py-2 px-4 rounded font-semibold text-lg text-white transition-all"
     >
       ورود / ثبت نام
     </button>

@@ -1,7 +1,7 @@
 @extends('Layouts.app')
 
 @php
-  $mainClass = 'w-full order-2 lg:order-1 lg:w-3/4 bg-[#f7f7f7]'
+  $mainClass = 'w-full lg:w-3/4 bg-[#f7f7f7]'
 @endphp
 
 @section('title', 'About Page')
@@ -18,7 +18,7 @@
     </span>
   </h1>
 
-  <div class="grid lg:grid-cols-2 gap-4">
+  <div class="grid lg:grid-cols-2 gap-4 mb-12">
 
     <div class="rounded-3xl overflow-hidden w-[90%] mx-auto shadow-lg">
       <div class="bg-[#2F2B42]">

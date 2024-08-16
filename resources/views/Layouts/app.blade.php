@@ -26,7 +26,7 @@
         <h1 class="text-4xl font-bold text-start">
           <a href="{{route('home')}}"> نیکس فایل
             <p class="font-medium text-sm pt-2">
-              
+
             </p>
           </a>
         </h1>
@@ -311,41 +311,42 @@
   integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-  {{--$(document).ready(function () {--}}
-  {{--  Dropzone.autoDiscover = false;--}}
+  $(document).ready(function () {
+    Dropzone.autoDiscover = false;
 
-  {{--  // Create a Dropzone instance for the form with ID 'dropzone'--}}
-  {{--  var myDropzone = new Dropzone("#fileDropzone", {--}}
-  {{--    url: "{{ url('/files/store')}}",--}}
-  {{--    paramName: "file", // The name of the file parameter that gets uploaded--}}
-  {{--    maxFilesize: 2, // Maximum file size in MB--}}
-  {{--    addRemoveLinks: true, // Adds a link to remove the file--}}
-  {{--    acceptedFiles: "image/*", // Accept only images (you can adjust this)--}}
-  {{--  --}}
-  {{--    // Event triggered when a file is successfully uploaded--}}
-  {{--    success: function (file, response) {--}}
-  {{--      // `file` is the file that was uploaded--}}
-  {{--      // `response` is the server response--}}
-  {{--  --}}
-  {{--      // Example: Displaying an alert--}}
-  {{--      alert("File uploaded successfully: " + file.name);--}}
-  {{--  --}}
-  {{--      // Example: Logging the server response to the console--}}
-  {{--      console.log("Server Response:", response);--}}
-  {{--  --}}
-  {{--      // You can perform other actions here, like updating the UI--}}
-  {{--    },--}}
-  {{--  --}}
-  {{--    // Event triggered when a file is removed--}}
-  {{--    removedfile: function (file) {--}}
-  {{--      // Example: Logging the file removal--}}
-  {{--      console.log("File removed: " + file.name);--}}
-  {{--      // You can handle server-side removal here if needed--}}
-  {{--    }--}}
-  {{--  });--}}
-  {{--  --}}
-  {{--  // You can also add other event listeners or configurations here--}}
-  {{--});--}}
+    // Create a Dropzone instance for the form with ID 'fileDropzone'
+    var myDropzone = new Dropzone("#fileDropzone", {
+      url: "{{ url('/files/store')}}",
+      paramName: "file", // The name of the file parameter that gets uploaded
+      maxFilesize: 1024, // Maximum file size in MB (1024 MB = 1 GB)
+      addRemoveLinks: true, // Adds a link to remove the file
+      acceptedFiles: "image/*", // Accept only images (you can adjust this)
+
+      // Event triggered when a file is successfully uploaded
+      success: function (file, response) {
+        // `file` is the file that was uploaded
+        // `response` is the server response
+
+        // Example: Displaying an alert
+        alert("File uploaded successfully: " + file.name);
+
+        // Example: Logging the server response to the console
+        console.log("Server Response:", response);
+
+        // You can perform other actions here, like updating the UI
+      },
+
+      // Event triggered when a file is removed
+      removedfile: function (file) {
+        // Example: Logging the file removal
+        console.log("File removed: " + file.name);
+        // You can handle server-side removal here if needed
+      }
+    });
+
+    // You can also add other event listeners or configurations here
+  });
+
 </script>
 
 </body>

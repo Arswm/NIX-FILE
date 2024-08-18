@@ -33,11 +33,11 @@
       </div>
 
       <div
-        class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 min-h-[420px] mb-12">
+        class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 min-h-[420px] mb-12 backdrop-blur-xl">
         <p class="text-center">preview should come here</p>
       </div>
 
-      <div class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 mb-12">
+      <div class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 mb-12 backdrop-blur-xl">
         <p class="text-center mb-8">ads will come here</p>
         <div class="grid lg:grid-cols-4 gap-8">
           <div>

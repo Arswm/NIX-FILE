@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 
-
+define('MEGABYTE', 1024 * 1024);
 class FileController extends Controller
 {
   /**
@@ -32,33 +32,40 @@ class FileController extends Controller
    */
   public function store(Request $request)
   {
+    $size = \auth()->user()->files()->sum('size');
+//    dd($size /  MEGABYTE );
+
     // Validate the file upload request
     $request->validate([
-      'file' => 'required|file|max:1048576',  // 1048576 KB = 1 GB
+      'file' => 'required|file|max:'.((120 * MEGABYTE) - $size),  // 1048576 KB = 1 GB
     ]);
 
 // Assuming the user's phone number is stored in the 'phone' column of the users table
     $phoneNumber = Auth::user()->phone;
 
+    $originalFileName = time() . $request->file->getClientOriginalName();
 // Create a new File object
     $file = new File();
     $file->user_id = Auth::user()->id;
+    $file->filename = $originalFileName;
+    $file->size = $request->file->getSize();
     $file->save();
 
 // Get the original name of the uploaded file
-    $originalFileName = $request->file->getClientOriginalName();
 
 // Define the path where the file should be stored
     $path = $phoneNumber . '/' . $originalFileName;
 
 // Store the file in the defined path under the 'public' disk
-    Storage::disk('public')->put($path, file_get_contents($request->file));
+//    Storage::disk('public')->put($path, file_get_contents($request->file));
 
+
+    $request->file->storeAs('public/' . $phoneNumber , $originalFileName);
 // Flash a success message (optional, you can customize this)
     session()->flash('message', 'File uploaded successfully!');
 
 // Redirect the user back to the previous page
-    return redirect()->back();
+    return ['size' => (($size + $file->size) / MEGABYTE ) ];
 
   }
 

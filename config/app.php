@@ -84,6 +84,14 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'fa_IR'),
 
+    'sms' => [
+      'username' => env('SMS_USERNAME'),
+      'password' => env('SMS_PASSWORD'),
+      'number' => env('SMS_NUMBER'),
+      'url' => env('SMS_URL'),
+      'pattern' => env('SMS_PATTERN'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

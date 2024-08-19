@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-  use HasFactory, Notifiable;
+  use HasFactory, Notifiable , SoftDeletes;
 
   /**
    * The attributes that are mass assignable.
@@ -46,29 +47,30 @@ class User extends Authenticatable
   }
 
   // Define role constants
-  const ROLE_USER = 'user';
-  const ROLE_PREMIUM = 'premium';
-  const ROLE_WRITER = 'writer';
-  const ROLE_ADMIN = 'admin';
-  const ROLE_LEGEND = 'legend';
-
-  /**
-   * Get all available roles.
-   *
-   * @return array<int, string>
-   */
-  public static function getAvailableRoles(): array
-  {
-    return [
-      self::ROLE_USER,
-      self::ROLE_PREMIUM,
-      self::ROLE_WRITER,
-      self::ROLE_ADMIN,
-      self::ROLE_LEGEND,
-    ];
-  }
+//  const ROLE_USER = 'user';
+//  const ROLE_PREMIUM = 'premium';
+//  const ROLE_WRITER = 'writer';
+//  const ROLE_ADMIN = 'admin';
+//  const ROLE_LEGEND = 'legend';
+//
+//  /**
+//   * Get all available roles.
+//   *
+//   * @return array<int, string>
+//   */
+//  public static function getAvailableRoles(): array
+//  {
+//    return [
+//      self::ROLE_USER,
+//      self::ROLE_PREMIUM,
+//      self::ROLE_WRITER,
+//      self::ROLE_ADMIN,
+//      self::ROLE_LEGEND,
+//    ];
+//  }
 
   public function files(){
-    return $this->hasMany(File::class);
+    return $this->hasMany(File::class,'user_id' , 'id' );
   }
+
 }

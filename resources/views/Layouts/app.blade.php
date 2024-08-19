@@ -9,7 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>@yield('title', 'w Title')</title>
   <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
-  @vite('resources/css/app.css')
+
+  @vite(['resources/css/app.css' , 'resources/js/app.js'])
 {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css"--}}
 {{--        integrity="sha512-7uSoC3grlnRktCWoO4LjHMjotq8gf9XDFQerPuaph+cqR7JC9XKGdvN+UwZMC14aAaBDItdRj3DcSDs4kMWUgg=="--}}
 {{--        crossorigin="anonymous" referrerpolicy="no-referrer"/>--}}
@@ -51,14 +52,25 @@
             </p>
 
             <div class="container mx-auto mt-0">
-              <form action="{{url("/files/store")}}" class="" id="fileDropzone">
+
+
+            </div>
+
+
+
+            <div class="uploader-images">
+              <form action="{{ route('files.store') }}" class="product-form" method="POST">
                 @csrf
-                <div class="fallback">
-                  <input name="file" type="file" multiple/>
-                </div>
-                <div id="dpreview"></div>
+              <input type="file" multiple accept=".jpg,.png,.gif" id="upload-image-select"/>
+                <button type="submit">upload</button>
               </form>
             </div>
+            <div id="upload-drag-drop">
+              <h2>
+                {{__("Click here to upload or drag and drop here")}}
+              </h2>
+
+
           </div>
 
           <div class="flex flex-col rounded-3xl bg-white shadow-custom px-4 py-6 justify-center items-center">
@@ -240,192 +252,77 @@
   crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
 
-{{--<script>--}}
-{{--  $("#submitPhone").on("click", function () {--}}
-{{--    let phone = $('#phoneInput').val();--}}
-{{--    let $numberNotValid = $('.numberNotValid');--}}
 
-{{--    if (phone.length !== 11 || !phone.startsWith('0')) {--}}
-{{--      $numberNotValid.text('شماره وارد شده معتبر نیست').show();--}}
-{{--      return;--}}
-{{--    }--}}
-
-{{--    $numberNotValid.hide();--}}
-
-{{--    $.ajax({--}}
-{{--      url: "{{ route('otp.sendPhone') }}",--}}
-{{--      type: 'POST',--}}
-{{--      dataType: "json",--}}
-{{--      data: {--}}
-{{--        phone: phone,--}}
-{{--        _token: "{{ csrf_token() }}"--}}
-{{--      },--}}
-{{--      success: function (data) {--}}
-
-{{--        $("#phoneInput").hide();--}}
-{{--        $("#tokenInput").show();--}}
-{{--        $("#otpWelcome").addClass('hidden');--}}
-{{--        $("#otpEnterCode").removeClass('hidden');--}}
-{{--        $("#submitPhone").hide();--}}
-{{--        $("#submitToken").show();--}}
-{{--      },--}}
-{{--      error: function (xhr, status, error) {--}}
-{{--        console.error('Error sending OTP:', error);--}}
-{{--        // ???--}}
-{{--      }--}}
-{{--    });--}}
-{{--  });--}}
-
-{{--  $("#submitToken").on("click", function () {--}}
-{{--    let token = $("#tokenInput").val();--}}
-{{--    let $tokenError = $(".tokenError");--}}
-
-{{--    if (token.length !== 5) {--}}
-{{--      $tokenError.html('رمز وارد شده معتبر نیست').show();--}}
-
-{{--      return--}}
-{{--    }--}}
-
-{{--    $tokenError.hide()--}}
-
-{{--    let phone = $('#phoneInput').val();--}}
-
-{{--    $.ajax({--}}
-{{--      url: "{{ route('otp.sendToken') }}",--}}
-{{--      type: 'POST',--}}
-{{--      dataType: "json",--}}
-{{--      data: {--}}
-{{--        phone: phone,--}}
-{{--        token: token,--}}
-{{--        _token: "{{ csrf_token() }}"--}}
-{{--      },--}}
-{{--      success: function (data) {--}}
-{{--        console.log('Login successful:', data);--}}
-{{--        location.reload();--}}
-{{--      },--}}
-{{--      error: function (xhr, status, error) {--}}
-{{--        console.error('Error sending OTP:', xhr.responseText); // Log the full response text--}}
-{{--      }--}}
-{{--    });--}}
-{{--  });--}}
-{{--</script>--}}
-
-{{--<script--}}
-{{--  src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"--}}
-{{--  integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ=="--}}
-{{--  crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
-{{--<script>--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
-  {{--$(document).ready(function () {--}}
-  {{--  Dropzone.autoDiscover = false;--}}
-
-  {{--  // Create a Dropzone instance for the form with ID 'fileDropzone'--}}
-  {{--  var myDropzone = new Dropzone("#fileDropzone", {--}}
-  {{--    url: "{{ url('/files/store')}}",--}}
-  {{--    paramName: "file", // The name of the file parameter that gets uploaded--}}
-  {{--    maxFilesize: 1024, // Maximum file size in MB (1024 MB = 1 GB)--}}
-  {{--    addRemoveLinks: true, // Adds a link to remove the file--}}
-  {{--    acceptedFiles: "image/*", // Accept only images (you can adjust this)--}}
-
-  {{--    // Event triggered when a file is successfully uploaded--}}
-  {{--    success: function (file, response) {--}}
-  {{--      // `file` is the file that was uploaded--}}
-  {{--      // `response` is the server response--}}
-
-  {{--      // Example: Displaying an alert--}}
-  {{--      alert("File uploaded successfully: " + file.name);--}}
-
-  {{--      // Example: Logging the server response to the console--}}
-  {{--      console.log("Server Response:", response);--}}
-
-  {{--      // You can perform other actions here, like updating the UI--}}
-  {{--    },--}}
-
-  {{--    // Event triggered when a file is removed--}}
-  {{--    removedfile: function (file) {--}}
-  {{--      // Example: Logging the file removal--}}
-  {{--      console.log("File removed: " + file.name);--}}
-  {{--      // You can handle server-side removal here if needed--}}
-  {{--    }--}}
-  {{--  });--}}
-
-  {{--  // You can also add other event listeners or configurations here--}}
-  {{--});--}}
 <script>
-  var dropzone = new Dropzone('#fileDropzone', {
-    previewTemplate: document.querySelector('#dpreview').innerHTML,
-    parallelUploads: 2,
-    thumbnailHeight: 120,
-    thumbnailWidth: 120,
-    maxFilesize: 3,
-    filesizeBase: 1000,
-    thumbnail: function (file, dataUrl) {
-      if (file.previewElement) {
-        file.previewElement.classList.remove("dz-file-preview");
-        var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
-        for (var i = 0; i < images.length; i++) {
-          var thumbnailElement = images[i];
-          thumbnailElement.alt = file.name;
-          thumbnailElement.src = dataUrl;
-        }
-        setTimeout(function () {
-          file.previewElement.classList.add("dz-image-preview");
-        }, 1);
-      }
-    },
-    init: function() {
-      this.on('error', function(file, errorMessage) {
-        console.log(errorMessage)
-        if (errorMessage.indexOf('Error 404') !== -1) {
-          var errorDisplay = document.querySelectorAll('[data-dz-errormessage]');
-          errorDisplay[errorDisplay.length - 1].innerHTML = 'Error 404: The upload page was not found on the server';
-        }
-      });
-    },
+  $("#submitPhone").on("click", function () {
+    let phone = $('#phoneInput').val();
+    let $numberNotValid = $('.numberNotValid');
 
+    if (phone.length !== 11 || !phone.startsWith('0')) {
+      $numberNotValid.text('شماره وارد شده معتبر نیست').show();
+      return;
+    }
+
+    $numberNotValid.hide();
+
+    $.ajax({
+      url: "{{ route('otp.sendPhone') }}",
+      type: 'POST',
+      dataType: "json",
+      data: {
+        phone: phone,
+        _token: "{{ csrf_token() }}"
+      },
+      success: function (data) {
+
+        $("#phoneInput").hide();
+        $("#tokenInput").show();
+        $("#otpWelcome").addClass('hidden');
+        $("#otpEnterCode").removeClass('hidden');
+        $("#submitPhone").hide();
+        $("#submitToken").show();
+      },
+      error: function (xhr, status, error) {
+        console.error('Error sending OTP:', error);
+        // ???
+      }
+    });
   });
 
+  $("#submitToken").on("click", function () {
+    let token = $("#tokenInput").val();
+    let $tokenError = $(".tokenError");
 
-  // Now fake the file upload, since GitHub does not handle file uploads
-  // and returns a 404
+    if (token.length !== 5) {
+      $tokenError.html('رمز وارد شده معتبر نیست').show();
 
-  var minSteps = 6,
-    maxSteps = 60,
-    timeBetweenSteps = 100,
-    bytesPerStep = 100000;
-
-  dropzone.uploadFiles = function (files) {
-    var self = this;
-
-    for (var i = 0; i < files.length; i++) {
-
-      var file = files[i];
-      totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-
-      for (var step = 0; step < totalSteps; step++) {
-        var duration = timeBetweenSteps * (step + 1);
-        setTimeout(function (file, totalSteps, step) {
-          return function () {
-            file.upload = {
-              progress: 100 * (step + 1) / totalSteps,
-              total: file.size,
-              bytesSent: (step + 1) * file.size / totalSteps
-            };
-
-            self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
-            if (file.upload.progress == 100) {
-              file.status = Dropzone.SUCCESS;
-              self.emit("success", file, 'success', null);
-              self.emit("complete", file);
-              self.processQueue();
-              //document.getElementsByClassName("dz-success-mark").style.opacity = "1";
-            }
-          };
-        }(file, totalSteps, step), duration);
-      }
+      return
     }
-  }
+
+    $tokenError.hide()
+
+    let phone = $('#phoneInput').val();
+
+    $.ajax({
+      url: "{{ route('otp.sendToken') }}",
+      type: 'POST',
+      dataType: "json",
+      data: {
+        phone: phone,
+        token: token,
+        _token: "{{ csrf_token() }}"
+      },
+      success: function (data) {
+        console.log('Login successful:', data);
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        console.error('Error sending OTP:', xhr.responseText); // Log the full response text
+      }
+    });
+  });
 </script>
+
 
 </body>
 

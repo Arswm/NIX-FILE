@@ -19,10 +19,6 @@ Route::get('/ads', function () {
   return view('ads');
 })->name('ads');
 
-Route::get('test', function () {
-  return phpinfo();
-});
-
 Route::get('/contact', function () {
   return view('contact');
 })->name('contact');
@@ -33,8 +29,10 @@ Route::post('/otp/sendToken', [OtpController::class, 'sendToken'])->name('otp.se
 Route::get('/logout', [OtpController::class, 'logout'])->name('otp.logout');
 
 // File upload routes
-Route::resource('files', FileController::class);
+//Route::resource('files', FileController::class);
 Route::post('/files/store', [FileController::class, 'store'])->name('files.store');
+Route::get('/files/index', [FileController::class, 'index'])->name('files.index');
+Route::get('/dl/{file}', [FileController::class, 'DL'])->name('file.dl');
 
 //Route::resource('posts', PostController::class)->middleware(['auth' , 'role:Legend']);
 Route::resource('posts', PostController::class)->middleware(['auth']);

@@ -12,7 +12,7 @@ function previewImage(input, i) {
       const uploadingImages = document.querySelector('#uploading-images');
       const newDiv = document.createElement('div');
       newDiv.dataset.id = i;
-      newDiv.className = 'col-xl-3 col-md-4 border p-3';
+      newDiv.className = 'w-full border p-3';
       newDiv.innerHTML = `
         <div class="img-preview" style="background-image: url('${img}')"></div>
         <div class="btn btn-danger upload-remove-image d-block">
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const uploadImageSelect = document.querySelector('#upload-image-select');
   const indexImage = document.querySelector('#index-image');
 
-  document.querySelector('.product-form')?.addEventListener('submit', function(e) {
+  document.querySelector('.product-form')?.addEventListener('submit', function (e) {
 
     e.preventDefault();
     if (isW8 || window.noSubmit) {
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(e.message);
         continue;
       }
-      console.log('x',f);
-      formData.append('image[]', f);
+      console.log('x', f);
+      formData.append('images[]', f);
     }
 
     const submitButtons = document.querySelectorAll("[type='submit']");
@@ -91,18 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       isW8 = false;
 
+      // console.log(res.data);
       if (res.data.OK) {
-        if (res.data.url !== undefined) {
-          window.location.href = res.data.url;
-        } else {
-          if (res.data.link !== undefined) {
-            this.setAttribute('action', res.data.link);
+        alertify.success(res.data.message);
+          try{
+            updateFile();
+          }catch {
+
           }
-          window.redirect = currentEditLink + res.data.data.slug;
-          this.setAttribute('action', currentUpdateLink + res.data.data.slug)
-          $toast.info(res.data.message);
-          window.store.dispatch('updateQuantities',res.data.data.qidz);
-        }
       }
     }).catch(error => {
       document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
@@ -115,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let i in error.response.data.errors) {
         document.getElementById(i)?.classList.add('is-invalid');
         for (const err of error.response.data.errors[i]) {
-          $toast.error(err);
+          alertify.error(err);
           // console.log(err);
         }
       }
-      $toast.error('Error:' +error.response.status);
+      alertify.error('Error:' + error.response.status);
     });
   });
   uploadingImages?.addEventListener('dblclick', (e) => {
@@ -143,7 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const file of uploadImageSelect.files) {
       console.log(file);
       uploadFormData.push(file);
-      previewImage(file, uploadFormData.length);
+      previewImage(file, uploadFormData.length); // image
+      //inja bayad preview beszam bara film
     }
   });
 
@@ -193,3 +190,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+

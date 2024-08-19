@@ -7,8 +7,6 @@
 @endphp
 @section('content')
 
-
-
   <div class="w-full bg-no-repeat bg-auto relative bg-[#290F0C]"
        style="background-image: url('{{asset('./images/hero.jpeg')}}')">
 
@@ -35,6 +33,10 @@
       <div
         class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 min-h-[420px] mb-12 backdrop-blur-xl">
         <p class="text-center">preview should come here</p>
+        <div id="uploading-images">
+
+        </div>
+        <div id="filez"></div>
       </div>
 
       <div class="w-[90%] mx-auto bg-white/70 rounded-3xl shadow-md backdrop-blur-20 p-8 mb-12 backdrop-blur-xl">
@@ -300,6 +302,30 @@
         </div>
       </div>
     </div>
+
+    @if(auth()->check())
+      <script>
+        function updateFile() {
+          try {
+            axios.get('{{route('files.index')}}').then(function (e) {
+              console.log(e.data)
+              let txt = '';
+              for (const file of e.data.files) {
+                console.log(file);
+                txt += `<a href="${file.link}"> ${file.name} </a> <hr>`
+              }
+              document.querySelector('#filez').innerHTML = txt;
+            });
+          } catch {
+
+          }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          updateFile();
+        });
+      </script>
   </div>
+
+  @endif
 
 @endsection

@@ -9,6 +9,15 @@ class File extends Model
 {
     use HasFactory;
 
+    protected $casts =[
+      'link'
+    ];
+
+    public function getLinkAttribute()
+    {
+       return route('file.dl',$this->id);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

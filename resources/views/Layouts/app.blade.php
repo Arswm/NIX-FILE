@@ -321,9 +321,33 @@
       }
     });
   });
+
 </script>
 
+@if(auth()->check())
+  <script>
+    function updateFile() {
+      try {
+        axios.get('{{route('files.index')}}').then(function (e) {
+          console.log(e.data)
+          let txt = '';
+          for (const file of e.data.files) {
+            console.log(file);
+            txt += `<a href="${file.link}"> ${file.name} </a> <hr>`
+          }
+          document.querySelector('#filez').innerHTML = txt;
+        });
+      } catch {
 
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      updateFile();
+    });
+  </script>
+  </div>
+
+@endif
 </body>
 
 </html>
